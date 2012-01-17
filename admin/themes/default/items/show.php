@@ -39,11 +39,7 @@ jQuery(document).ready(function () {
 <?php echo flash(); ?>
 
 <?php if (item_has_files()): ?>
-<?php
-require_once HELPER_DIR . '/Media.php';
-$media = new Omeka_View_Helper_Media;
-$item = get_current_item();
-?>
+<?php $item = get_current_item(); ?>
 <script type="text/javascript">
 jQuery(document).ready(function () {
   jQuery('.toggle-file-container').hide();
@@ -69,7 +65,7 @@ jQuery(document).ready(function () {
         <?php foreach ($item->Files as $file): ?>
         <li id="file-<?php echo $file->id; ?>" style="margin-bottom: 10px;">
             <a href="" class="toggle-file"><img src="<?php echo img('silk-icons/arrow_down.png'); ?>" /><?php echo $file->original_filename; ?></a> (<?php echo $file->mime_browser; ?>)
-            <div id="toggle-file-<?php echo $file->id; ?>" class="toggle-file-container" style="margin: 10px 0 20px;"><?php echo $media->media($file, array('imageSize' => 'fullsize', 'linkText' => '[download file]'), array('class'=>'item-file')); ?></div>
+            <div id="toggle-file-<?php echo $file->id; ?>" class="toggle-file-container" style="margin: 10px 0 20px;"><?php echo display_file($file, array('imageSize' => 'fullsize', 'linkText' => '[download file]'), array('class'=>'item-file')); ?></div>
         </li>
         <?php endforeach; ?>
     </ol>
