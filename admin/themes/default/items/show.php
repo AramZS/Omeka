@@ -38,9 +38,43 @@ jQuery(document).ready(function () {
 <div id="primary">
 <?php echo flash(); ?>
 
+<?php if (item_has_files()): ?>
+<?php
+require_once HELPER_DIR . '/Media.php';
+$media = new Omeka_View_Helper_Media;
+$item = get_current_item();
+?>
+<script type="text/javascript">
+jQuery(document).ready(function () {
+  jQuery('.toggle-file-container').hide();
+  jQuery('#show-files').click(function(e) {
+    e.preventDefault();
+    jQuery('.toggle-file-container').show('fast');
+  });
+  jQuery('#hide-files').click(function(e) {
+    e.preventDefault();
+    jQuery('.toggle-file-container').hide('fast');
+  });
+  jQuery('.toggle-file').click(function(e) {
+    e.preventDefault();
+    var file_id = parseInt(jQuery(this).closest('li').attr('id').split('-')[1], 10);
+    jQuery('#toggle-file-' + file_id).toggle('fast');
+  });
+});
+</script>
 <div id="item-images">
-<?php echo display_files_for_item(array('imageSize' => 'fullsize')); ?> 
+    <h2>Files</h2>
+    <p><a href="" id="show-files">show all</a> | <a href="" id="hide-files">hide all</a></p>
+    <ol style="list-style: decimal inside;">
+        <?php foreach ($item->Files as $file): ?>
+        <li id="file-<?php echo $file->id; ?>" style="margin-bottom: 10px;">
+            <a href="" class="toggle-file"><img src="<?php echo img('silk-icons/arrow_down.png'); ?>" /><?php echo $file->original_filename; ?></a> (<?php echo $file->mime_browser; ?>)
+            <div id="toggle-file-<?php echo $file->id; ?>" class="toggle-file-container" style="margin: 10px 0 20px;"><?php echo $media->media($file, array('imageSize' => 'fullsize', 'linkText' => '[download file]'), array('class'=>'item-file')); ?></div>
+        </li>
+        <?php endforeach; ?>
+    </ol>
 </div>
+<?php endif; ?>
 
 <div id="core-metadata" class="showitem">
 <?php echo show_item_metadata(array('show_empty_elements' => true)); ?>
