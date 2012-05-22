@@ -41,6 +41,7 @@ class Installer_Task_Schema implements Installer_TaskInterface
         'taggings',
         'users_activations',
         'sessions',
+        'search_texts',
     );
     
     private $_tables = array();

@@ -928,4 +928,9 @@ abstract class Omeka_Record implements ArrayAccess
             return $acl->checkUserPermission($resource, $rule);
         }
     }    
+    
+    public function getRecordRoute()
+    {
+        return false;
+    }
 }
