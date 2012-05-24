@@ -430,9 +430,4 @@ class Item extends Omeka_Record implements Zend_Acl_Resource_Interface
     {
         return 'Items';
     }
-    
-    public function getRecordRoute()
-    {
-        return "/items/show/{$this->id}";
-    }
 }

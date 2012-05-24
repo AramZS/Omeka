@@ -310,9 +310,4 @@ class File extends Omeka_Record
 
         return $this->_storage;
     }
-    
-    public function getRecordRoute()
-    {
-        return "/files/show/{$this->id}";
-    }
 }
