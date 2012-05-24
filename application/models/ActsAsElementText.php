@@ -121,7 +121,7 @@ class ActsAsElementText extends Omeka_Record_Mixin
             $recordName = $this->_getRecordType();
             $searchText = $this->_getDb()
                                ->getTable('SearchText')
-                               ->findByRecordNameAndRecordId($recordName, $this->_record->id);
+                               ->findByRecord($recordName, $this->_record->id);
             if (!$searchText) {
                 $searchText = new SearchText;
                 $searchText->record_name = $recordName;

@@ -1,7 +1,7 @@
 <?php
 class SearchTextTable extends Omeka_Db_Table
 {
-    public function findByRecordNameAndRecordId($recordName, $recordId)
+    public function findByRecord($recordName, $recordId)
     {
         $select = $this->getSelect();
         $select->where('record_name = ?', $recordName);
