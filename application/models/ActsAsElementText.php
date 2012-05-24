@@ -113,23 +113,11 @@ class ActsAsElementText extends Omeka_Record_Mixin
     {
         $this->saveElementTexts();
         
-        $text = $this->_record->getSearchText();
+        $text = '';
         foreach ($this->getElementTextRecords() as $elementText) {
             $text .= ' ' . $elementText->text;
         }
-        if ($text) {
-            $recordName = $this->_getRecordType();
-            $searchText = $this->_getDb()
-                               ->getTable('SearchText')
-                               ->findByRecord($recordName, $this->_record->id);
-            if (!$searchText) {
-                $searchText = new SearchText;
-                $searchText->record_name = $recordName;
-                $searchText->record_id = $this->_record->id;
-            }
-            $searchText->text = $text;
-            $searchText->save();
-        }
+        $this->_record->addSearchText($text);
     }
     
     /**

@@ -45,6 +45,7 @@ class Item extends Omeka_Record implements Zend_Acl_Resource_Interface
         $this->_mixins[] = new Relatable($this);
         $this->_mixins[] = new ActsAsElementText($this);
         $this->_mixins[] = new PublicFeatured($this);
+        $this->_mixins[] = new SearchMixin($this);
     }
     
     // Accessor methods

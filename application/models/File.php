@@ -51,6 +51,7 @@ class File extends Omeka_Record
     protected function _initializeMixins()
     {
         $this->_mixins[] = new ActsAsElementText($this);
+        $this->_mixins[] = new SearchMixin($this);
     }
 
     protected function beforeInsert()
