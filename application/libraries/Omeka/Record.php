@@ -934,4 +934,9 @@ abstract class Omeka_Record implements ArrayAccess
         $controller = str_replace('_', '-', Inflector::tableize(get_class($this)));
         return "/$controller/show/{$this->id}";
     }
+    
+    public function getSearchText()
+    {
+        return '';
+    }
 }
