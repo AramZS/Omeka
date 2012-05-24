@@ -62,6 +62,7 @@ class Collection extends Omeka_Record
     protected function _initializeMixins()
     {
         $this->_mixins[] = new PublicFeatured($this);
+        $this->_mixins[] = new SearchMixin($this);
     }
     
     /**
@@ -258,5 +259,11 @@ class Collection extends Omeka_Record
         $boolFilter = new Omeka_Filter_Boolean();
         $this->featured = $boolFilter->filter($this->featured);
         $this->public = $boolFilter->filter($this->public);
+    }
+    
+    protected function afterSave()
+    {
+        $text = "{$this->name} {$this->description}";
+        $this->addSearchText($text);
     }
 }
