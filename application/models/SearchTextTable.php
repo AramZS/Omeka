@@ -11,10 +11,16 @@ class SearchTextTable extends Omeka_Db_Table
     
     public function search($query)
     {
+        $acl = Omeka_Context::getInstance()->acl;
+        $showNotPublic = $acl->checkUserPermission('SearchTexts', 'showNotPublic');
+        
         $sql = "
         SELECT record_name, record_id, MATCH (text) AGAINST (?) AS relevance
         FROM {$this->getTableName()} 
         WHERE MATCH (text) AGAINST (?)";
+        if (!$showNotPublic) {
+            $sql .= " AND public = 1";
+        }
         $results = $this->getDb()->fetchAll($sql, array($query, $query));
         foreach ($results as $key => $result) {
             $results[$key]['record'] = $this->getTable($result['record_name'])

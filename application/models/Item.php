@@ -237,6 +237,9 @@ class Item extends Omeka_Record implements Zend_Acl_Resource_Interface
      */
     protected function afterSave()
     {
+        if (!$this->public) {
+            $this->setSearchTextPrivate();
+        }
         $this->saveFiles();
     }
             

@@ -71,6 +71,14 @@ class File extends Omeka_Record
                           array('fileId' => $this->id));
     }
     
+    protected function afterSave()
+    {
+        $item = $this->getItem();
+        if (!$item->public) {
+            $this->setSearchTextPrivate();
+        }
+    }
+    
     protected function beforeUpdate()
     {
         $this->modified = Zend_Date::now()->toString(self::DATE_FORMAT);

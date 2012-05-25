@@ -263,6 +263,9 @@ class Collection extends Omeka_Record
     
     protected function afterSave()
     {
+        if (!$this->public) {
+            $this->setSearchTextPrivate();
+        }
         $text = "{$this->name} {$this->description}";
         $this->addSearchText($text);
     }
