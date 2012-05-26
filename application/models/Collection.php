@@ -266,6 +266,7 @@ class Collection extends Omeka_Record
         if (!$this->public) {
             $this->setSearchTextPrivate();
         }
+        $this->setSearchTextTitle($this->name);
         $text = "{$this->name} {$this->description}";
         $this->addSearchText($text);
     }

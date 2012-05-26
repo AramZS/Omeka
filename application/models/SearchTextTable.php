@@ -15,7 +15,7 @@ class SearchTextTable extends Omeka_Db_Table
         $showNotPublic = $acl->checkUserPermission('SearchTexts', 'showNotPublic');
         
         $sql = "
-        SELECT record_name, record_id, MATCH (text) AGAINST (?) AS relevance
+        SELECT record_name, record_id, title, MATCH (text) AGAINST (?) AS relevance
         FROM {$this->getTableName()} 
         WHERE MATCH (text) AGAINST (?)";
         if (!$showNotPublic) {

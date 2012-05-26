@@ -113,6 +113,8 @@ class ActsAsElementText extends Omeka_Record_Mixin
     {
         $this->saveElementTexts();
         
+        $elementTexts = $this->getElementTextsByElementNameAndSetName('Title', 'Dublin Core');
+        $this->_record->setSearchTextTitle($elementTexts[0]->text);
         $text = '';
         foreach ($this->getElementTextRecords() as $elementText) {
             $text .= ' ' . $elementText->text;
