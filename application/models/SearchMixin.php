@@ -74,4 +74,15 @@ class SearchMixin extends Omeka_Record_Mixin
         $searchText->text = $this->_text;
         $searchText->save();
     }
+    
+    /**
+     * Delete this record's search text after it has been deleted.
+     */
+    public function afterDelete()
+    {
+        $searchText = $this->_record->getDb()->getTable('SearchText')->findByRecord(get_class($this->_record), $this->_record->id);
+        if ($searchText) {
+            $searchText->delete();
+        }
+    }
 }
